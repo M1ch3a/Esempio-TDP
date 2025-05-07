@@ -134,6 +134,7 @@
     fetch(url)
       .then(response => response.json())
       .then(data => {
+        console.log('Data received:', data);
         const container = document.getElementById('news-container');
         container.innerHTML = '';
 
