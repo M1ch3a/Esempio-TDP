@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mafia-news-backend
+    runtime: python
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port 8000"
+    envVars:
+      - key: NEWS_API_KEY
+        value: 29301ef09e5c426a96143b785681a53b
+    rootDir: backend
