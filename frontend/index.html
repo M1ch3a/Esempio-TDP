@@ -139,17 +139,20 @@
         container.innerHTML = '';
 
         data.articles.forEach(article => {
-          const div = document.createElement('div');
-          div.className = 'news';
-          div.innerHTML = `
-            ${article.urlToImage ? `<img src="${article.urlToImage}" alt="Immagine notizia">` : ''}
-            <div class="news-content">
-              <h3><a href="${article.url}" target="_blank">${article.title}</a></h3>
-              <p>${article.description || ''}</p>
-              <small><strong>${article.source.name}</strong> • ${new Date(article.publishedAt).toLocaleString()}</small>
-            </div>
-          `;
-          container.appendChild(div);
+          const card = document.createElement('div');
+          card.className = 'news';
+          card.innerHTML = `
+          <img src="${article.urlToImage}" alt="Immagine articolo">
+          <div class="news-content">
+            <h3>${article.title}</h3>
+            <p><strong>Fonte:</strong> ${article.source.name} (${article.source.id ?? 'N/A'})</p>
+            <p>${article.description}</p>
+            <p><small>Pubblicato il: ${new Date(article.publishedAt).toLocaleString()}</small></p>
+            <a href="${article.url}" target="_blank">Leggi di più</a>
+          </div>
+        `;
+
+        container.appendChild(card);
         });
       })
       .catch(error => {
