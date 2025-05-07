@@ -7,7 +7,7 @@ app = FastAPI()
 # CORS per permettere accesso dal sito web
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://esempio-tdp.onrender.com"],  # In produzione: metti l'URL vero del tuo sito
+    allow_origins=["https://news-mafia.netlify.app/"],  # In produzione: metti l'URL vero del tuo sito
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
