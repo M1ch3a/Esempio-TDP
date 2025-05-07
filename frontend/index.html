@@ -134,14 +134,13 @@
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        console.log('Data received:', data);
         const container = document.getElementById('news-container');
-        container.innerHTML = '';
-
+        
         data.articles.forEach(article => {
-          const card = document.createElement('div');
-          card.className = 'news';
-          card.innerHTML = `
+        const card = document.createElement('div');
+        card.className = 'news-card';
+
+        card.innerHTML = `
           <img src="${article.urlToImage}" alt="Immagine articolo">
           <div class="news-content">
             <h3>${article.title}</h3>
@@ -153,7 +152,7 @@
         `;
 
         container.appendChild(card);
-        });
+      });
       })
       .catch(error => {
         document.getElementById('news-container').innerHTML = 'Errore nel caricamento delle notizie.';
