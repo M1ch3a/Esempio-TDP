@@ -132,9 +132,11 @@
     const url = 'https://esempio-tdp.onrender.com/news';
 
     fetch(url)
-      .then(response => response.json())
+      .then(response => {
+        console.log('Risposta grezza:', response);
+        return response.json();})
       .then(data => {
-        console.log(data)
+        console.log('Dati ricevuti:', data);
         const container = document.getElementById('news-container');
         
         data.articles.forEach(article => {
@@ -157,7 +159,7 @@
       })
       .catch(error => {
         document.getElementById('news-container').innerHTML = 'Errore nel caricamento delle notizie.';
-        console.error(error);
+        console.error('Errore nel fetch:', error);
       });
   </script>
 
