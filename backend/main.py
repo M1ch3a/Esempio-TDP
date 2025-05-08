@@ -15,7 +15,7 @@ from contextlib import asynccontextmanager
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 # Abilita CORS per accesso dal frontend
 app.add_middleware(
@@ -68,8 +68,6 @@ async def lifespan(app: FastAPI):
     scheduler.shutdown()
     logger.info("Scheduler fermato.")
 
-app = FastAPI(lifespan=lifespan)
-
 @app.get("/news")
 def get_mafia_news():
     url = "https://newsapi.org/v2/everything"
@@ -85,6 +83,7 @@ def get_mafia_news():
 
 @app.post("/subscribe")
 def subscribe(email: str = Form(...)):
+    logger.info(f"Richiesta di iscrizione ricevuta per: {email}")
     if "@" not in email:
         return JSONResponse(status_code=400, content={"message": "Email non valida."})
     
