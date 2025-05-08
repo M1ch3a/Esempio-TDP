@@ -20,7 +20,7 @@ app = FastAPI()
 # Abilita CORS per accesso dal frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://aquamarine-faun-6e3e00.netlify.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
