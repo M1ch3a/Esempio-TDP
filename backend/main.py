@@ -26,7 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-NEWS_API_KEY = "0d082d09a8b44957a862fd3418a738fe"
+NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 CSV_FILE_PATH = "subscribers.csv"
 
 # Funzione per leggere gli iscritti dal CSV
