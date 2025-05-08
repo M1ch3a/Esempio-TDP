@@ -2,3 +2,4 @@ fastapi
 uvicorn
 requests
 apscheduler
+python-multipart
