@@ -54,6 +54,7 @@ def read_subscribers():
             for row in reader:
                 if row:
                     subscribers.add(row[0])
+        logger.info(f"Iscritti attuali: {subscribers}")
     return subscribers
 
 # Funzione per aggiungere un nuovo iscritto
