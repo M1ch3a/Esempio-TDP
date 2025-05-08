@@ -15,6 +15,21 @@ from contextlib import asynccontextmanager
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    scheduler.add_job(
+        send_newsletter_periodically,
+        IntervalTrigger(hours=24),
+        id='newsletter_job',
+        name='Invia newsletter ogni 24 ore',
+        replace_existing=True
+    )
+    scheduler.start()
+    logger.info("Scheduler avviato.")
+    yield
+    scheduler.shutdown()
+    logger.info("Scheduler fermato.")
+
 app = FastAPI(lifespan=lifespan)
 
 # Abilita CORS per accesso dal frontend
@@ -52,21 +67,6 @@ subscribers = read_subscribers()
 
 # Scheduler background
 scheduler = BackgroundScheduler()
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    scheduler.add_job(
-        send_newsletter_periodically,
-        IntervalTrigger(hours=24),
-        id='newsletter_job',
-        name='Invia newsletter ogni 24 ore',
-        replace_existing=True
-    )
-    scheduler.start()
-    logger.info("Scheduler avviato.")
-    yield
-    scheduler.shutdown()
-    logger.info("Scheduler fermato.")
 
 @app.get("/news")
 def get_mafia_news():
